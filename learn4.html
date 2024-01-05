@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v4</title>
+  <style>
+    .quiz-container {
+      display: none;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    #summary {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="stage1">
+  <h2>Level 1</h2>
+  <p>automatic form validation with correct/incorrect highlighting</p>
+  <p>ADDED: quiz summary</p>
+  <button onclick="startQuiz()">Next</button>
+</div>
+
+<div id="quiz1" class="quiz-container">
+  <h2>Question 1</h2>
+  <form id="question1Form">
+    <label>
+      <input type="radio" name="q1" value="option1" id="incorrect" onchange="autoCheckAnswer(1, this)"> <span id="option1">Option 1</span>
+    </label>
+    <label>
+      <input type="radio" name="q1" value="option2" id="correct" onchange="autoCheckAnswer(1, this)"> <span id="option2">Option 2</span>
+    </label>
+    <label>
+      <input type="radio" name="q1" value="option3" id="incorrect" onchange="autoCheckAnswer(1, this)"> <span id="option3">Option 3</span>
+    </label>
+    <label>
+      <input type="radio" name="q1" value="option4" id="incorrect" onchange="autoCheckAnswer(1, this)"> <span id="option4">Option 4</span>
+    </label>
+  </form>
+  <button id="proceed1" onclick="proceedToNextStage(1)" disabled>Proceed</button>
+</div>
+
+<div id="quiz2" class="quiz-container">
+  <h2>Question 2</h2>
+  <form id="question2Form">
+    <label>
+      <input type="radio" name="q2" value="option1" id="incorrect" onchange="autoCheckAnswer(2, this)"> <span id="option1-2">Option 1</span>
+    </label>
+    <label>
+      <input type="radio" name="q2" value="option2" id="incorrect" onchange="autoCheckAnswer(2, this)"> <span id="option2-2">Option 2</span>
+    </label>
+    <label>
+      <input type="radio" name="q2" value="option3" id="correct" onchange="autoCheckAnswer(2, this)"> <span id="option3-2">Option 3</span>
+    </label>
+    <label>
+      <input type="radio" name="q2" value="option4" id="incorrect" onchange="autoCheckAnswer(2, this)"> <span id="option4-2">Option 4</span>
+    </label>
+  </form>
+  <button id="proceed2" onclick="proceedToNextStage(2)" disabled>Proceed</button>
+</div>
+
+<div id="summary">
+  <h2>Quiz Summary</h2>
+  <p id="correctCount">Correct Answers: <span id="correctAnswers">0</span>/<span id="totalQuestions">0</span></p>
+  <p id="percentage">Percentage: <span id="percentageValue">0</span>%</p>
+</div>
+
+<script>
+  let currentStage = 1;
+  let correctAnswers = 0;
+  let totalQuestions = 0;
+
+  function startQuiz() {
+    document.getElementById('stage1').style.display = 'none';
+    document.getElementById(`quiz${currentStage}`).style.display = 'block';
+  }
+
+  function autoCheckAnswer(questionNumber, selectedOption) {
+    const formId = `question${questionNumber}Form`;
+    const options = document.querySelectorAll(`#${formId} input[type="radio"]`);
+
+    options.forEach(option => {
+      option.parentElement.querySelector('span').classList.remove('correct', 'incorrect');
+      if (option.id === 'correct') {
+        option.parentElement.querySelector('span').classList.add('correct');
+      } else {
+        option.parentElement.querySelector('span').classList.add('incorrect');
+      }
+    });
+
+    // Highlight the selected option
+    selectedOption.parentElement.querySelector('span').classList.add(selectedOption.id === 'correct' ? 'correct' : 'incorrect');
+
+    disableRadioButtons(formId);
+    document.getElementById(`proceed${currentStage}`).disabled = false;
+
+    // Count correct answers
+    if (selectedOption.id === 'correct') {
+      correctAnswers++;
+    }
+
+    totalQuestions++;
+  }
+
+  function disableRadioButtons(formId) {
+    const radioButtons = document.querySelectorAll(`#${formId} input[type="radio"]`);
+    radioButtons.forEach(radioButton => {
+      radioButton.disabled = true;
+    });
+  }
+
+  function proceedToNextStage(stageNumber) {
+    document.getElementById(`quiz${currentStage}`).style.display = 'none';
+    currentStage = stageNumber + 1;
+
+    if (currentStage <= 2) {
+      document.getElementById(`quiz${currentStage}`).style.display = 'block';
+      document.getElementById(`proceed${currentStage}`).disabled = true;
+    } else {
+      showSummary();
+    }
+  }
+
+  function showSummary() {
+    const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+    document.getElementById('summary').style.display = 'block';
+    document.getElementById('correctAnswers').textContent = correctAnswers;
+    document.getElementById('totalQuestions').textContent = totalQuestions;
+    document.getElementById('percentageValue').textContent = percentage;
+  }
+</script>
+
+</body>
+</html>

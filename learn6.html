@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v6</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="scripts/V6.js"></script>
+</head>
+
+<body>
+
+    <!-- THIS IS WHERE YOU PUT THE GUY DOING THE GANG SIGNS -->
+    <div id="stage-1-inst">
+        <h2>Level 1</h2>
+        <p>automatic form validation with correct/incorrect highlighting and quiz summary</p>
+        <p>ADDED:</p>
+        <ul>
+            <li>better correct incorrect highlighting</li>
+            <li>question limits and safeguards</li>
+        </ul>
+        <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <!-- MULTIPLE CHOICE QUESTION 1, GUESS WHAT THE GUY FROM THE INSTRUCTIONS DID -->
+    <!-- autoCheckAnswer(stage, this) -->
+    <!-- where stage = level -->
+    <!-- built like this in case that there comes a necessity to have multiple questions within a single stage -->
+    <div id="quiz-1" class="quiz-container">
+        <h2>Question 1</h2>
+        <form id="question1Form">
+            <label>
+                <input type="radio" value="option1" id="incorrect1" onchange="autoCheckAnswer(1, this)"> <span
+                    id="option1">Option 1</span>
+            </label>
+            <label>
+                <input type="radio" value="option2" id="correct-1" onchange="autoCheckAnswer(1, this)"> <span
+                    id="option2">Option 2</span>
+            </label>
+            <label>
+                <input type="radio" value="option3" id="incorrect2" onchange="autoCheckAnswer(1, this)"> <span
+                    id="option3">Option 3</span>
+            </label>
+            <label>
+                <input type="radio" value="option4" id="incorrect3" onchange="autoCheckAnswer(1, this)"> <span
+                    id="option4">Option 4</span>
+            </label>
+        </form>
+        <button id="proceed-1" onclick="proceedToSummary()">Proceed to Summary</button>
+    </div>
+
+    <!-- unnecessary if each stage contains only a single question, built for redundancy -->
+    <div id="summary-1" style="display: none;">
+        <h2>Stage 1 Summary</h2>
+        <p id="correctCount-1">Correct Answers: <span id="correctAnswers-1">0</span>/<span
+                id="totalQuestions-1">0</span></p>
+        <p id="percentage-1">Percentage: <span id="percentageValue-1">0</span>%</p>
+        <p id="notify-1"><span id="stageNext-1">0</span></p>
+        <button id="proceed-2" onclick="proceedToNextStage()">Proceed to next Stage</button>
+    </div>
+
+    <!-- STAGE 2 ============================================================================ -->
+    <!-- THIS IS WHERE YOU PUT THE GUY DOING THE GANG SIGNS -->
+    <div id="stage-2-inst" style="display: none;">
+        <h2>Level 2</h2>
+        <p>this is level 2</p>
+        <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <div id="quiz-2" class="quiz-container">
+        <h2>Question 2</h2>
+        <form id="question2Form">
+            <label>
+                <input type="radio" name="s1" value="option1" id="incorrect1" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option1">Option 1</span>
+            </label>
+            <label>
+                <input type="radio" name="s1" value="option2" id="correct-2" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option2">Option 2</span>
+            </label>
+            <label>
+                <input type="radio" name="s1" value="option3" id="incorrect2" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option3">Option 3</span>
+            </label>
+            <label>
+                <input type="radio" name="s1" value="option4" id="incorrect3" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option4">Option 4</span>
+            </label>
+        </form>
+        <button id="proceed-1" onclick="proceedToSummary()">Proceed to Summary</button>
+    </div>
+
+    <div id="summary-2" style="display: none;">
+        <h2>Stage 2 Summary</h2>
+        <p id="correctCount-2">Correct Answers: <span id="correctAnswers-2">0</span>/<span
+                id="totalQuestions-2">0</span></p>
+        <p id="percentage-2">Percentage: <span id="percentageValue-2">0</span>%</p>
+        <p id="notify-2"><span id="stageNext-2">0</span></p>
+        <button id="proceed-3" onclick="proceedToNextStage()">Proceed to next Stage</button>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v5.5</title>
+    <style>
+        .quiz-container {
+            display: none;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+        /* #summary1 {
+            display: none;
+        } */
+    </style>
+</head>
+
+<body>
+
+    <div id="stage1-inst">
+        <h2>Level 1</h2>
+        <p>automatic form validation with correct/incorrect highlighting and quiz summary</p>
+        <p>ADDED: multiple stages</p>
+        <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <div id="quiz1" class="quiz-container">
+        <h2>Question 1</h2>
+        <form id="question1Form">
+            <label>
+                <input type="radio" value="option1" id="incorrect" onchange="autoCheckAnswer(1, this)"> <span
+                    id="option1">Option 1</span>
+            </label>
+            <label>
+                <input type="radio" value="option2" id="correct" onchange="autoCheckAnswer(1, this)"> <span
+                    id="option2">Option 2</span>
+            </label>
+            <label>
+                <input type="radio" value="option3" id="incorrect" onchange="autoCheckAnswer(1, this)"> <span
+                    id="option3">Option 3</span>
+            </label>
+            <label>
+                <input type="radio" value="option4" id="incorrect" onchange="autoCheckAnswer(1, this)"> <span
+                    id="option4">Option 4</span>
+            </label>
+        </form>
+        <button id="proceed1" onclick="proceedToSummary()" disabled>Proceed to Summary</button>
+    </div>
+
+    <div id="summary1" style="display: none;">
+        <h2>Stage 1 Summary</h2>
+        <p id="correctCount">Correct Answers: <span id="correctAnswers">0</span>/<span id="totalQuestions">0</span></p>
+        <p id="percentage">Percentage: <span id="percentageValue">0</span>%</p>
+        <p id="notify"> Stage <span id="stageNext">0</span> Unlocked!</p>
+        <button id="proceed2" onclick="proceedToNextStage(2)">Proceed to next Stage</button>
+    </div>
+
+    <div id="stage2-inst" style="display: none;">
+        <h2>Level 2</h2>
+        <p>this is level 2</p>
+        <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <div id="quiz2" class="quiz-container">
+        <h2>Question 2</h2>
+        <form id="question2Form">
+            <label>
+                <input type="radio"  value="option1" id="incorrect" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option1">Option 1</span>
+            </label>
+            <label>
+                <input type="radio"  value="option2" id="correct" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option2">Option 2</span>
+            </label>
+            <label>
+                <input type="radio"  value="option3" id="incorrect" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option3">Option 3</span>
+            </label>
+            <label>
+                <input type="radio"  value="option4" id="incorrect" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option4">Option 4</span>
+            </label>
+        </form>
+        <button id="proceed1" onclick="proceedToSummary()">Proceed to Summary</button>
+    </div>
+
+    <div id="summary2" style="display: none;">
+        <h2>Stage 2 Summary</h2>
+        <p id="correctCount">Correct Answers: <span id="correctAnswers">0</span>/<span id="totalQuestions">0</span></p>
+        <p id="percentage">Percentage: <span id="percentageValue">0</span>%</p>
+        <p id="notify"> Stage <span id="stageNext">0</span> Unlocked!</p>
+        <button id="proceed2" onclick="proceedToNextStage(3)">Proceed to next Stage</button>
+    </div>
+
+    <script>
+        let currentStage = 1;
+        let correctAnswers = 0;
+        let totalQuestions = 0;
+
+        function startQuiz() {
+            console.log(`SQ ${currentStage}`)
+            document.getElementById(`stage${currentStage}-inst`).style.display = 'none';
+            document.getElementById(`quiz${currentStage}`).style.display = 'block';
+        }
+
+        function autoCheckAnswer(questionNumber, selectedOption) {
+            console.log(`aCA ${currentStage}`)
+            const formId = `question${questionNumber}Form`;
+            const options = document.querySelectorAll(`#${formId} input[type="radio"]`);
+
+            options.forEach(option => {
+                option.parentElement.querySelector('span').classList.remove('correct', 'incorrect');
+                if (option.id === 'correct') {
+                    option.parentElement.querySelector('span').classList.add('correct');
+                } else {
+                    option.parentElement.querySelector('span').classList.add('incorrect');
+                }
+            });
+
+            // Highlight the selected option
+            selectedOption.parentElement.querySelector('span').classList.add(selectedOption.id === 'correct' ? 'correct' : 'incorrect');
+
+            disableRadioButtons(formId);
+            document.getElementById(`proceed${currentStage}`).disabled = false;
+
+            // Count correct answers
+            if (selectedOption.id === 'correct') {
+                correctAnswers++;
+            }
+
+            totalQuestions++;
+        }
+
+        function disableRadioButtons(formId) {
+            console.log(`dRB ${currentStage}`)
+            const radioButtons = document.querySelectorAll(`#${formId} input[type="radio"]`);
+            radioButtons.forEach(radioButton => {
+                radioButton.disabled = true;
+            });
+        }
+
+        function proceedToSummary() {
+            console.log(`pTS ${currentStage}`)
+            document.getElementById(`quiz${currentStage}`).style.display = 'none';
+            showSummary();
+        }
+        
+        function showSummary() {
+            console.log(`sS ${currentStage}`)
+            const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+            document.getElementById(`summary${currentStage}`).style.display = 'block';
+            document.getElementById('correctAnswers').textContent = correctAnswers;
+            document.getElementById('totalQuestions').textContent = totalQuestions;
+            document.getElementById('percentageValue').textContent = percentage;
+            document.getElementById('stageNext').textContent = currentStage + 1;
+            currentStage++;
+        }
+
+        function proceedToNextStage(currentStage) {
+            console.log(`pTNS ${currentStage}`)
+            if (currentStage <= 4) {
+                document.getElementById(`summary${currentStage - 1}`).style.display = 'none';
+                document.getElementById(`stage${currentStage}-inst`).style.display = 'block';
+                if (document.getElementById(`proceed${currentStage}`)) {
+                    document.getElementById(`proceed${currentStage}`).disabled = true;
+                }
+            }
+            currentStage++;
+        }
+    </script>
+
+</body>
+
+</html>

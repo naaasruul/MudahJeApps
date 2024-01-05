@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>btn-test</title>
+    <link rel="stylesheet" href="learn.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <table>
+            <tr>
+                <h1>levels</h1>
+            </tr>
+            <tr class="levelte">
+                <button id="stageSelector-1">Level 1</button>
+                <button id="stageSelector-2" disabled>Level 2</button>
+                <button id="stageSelector-3" disabled>Level 3</button>
+                <button id="stageSelector-4" disabled>Level 4</button>
+            </tr>
+        </table>
+
+
+
+        <button onclick=iterate()>iterate!</button>
+
+    </div>
+
+    <script>
+        let currentStage = 1
+        let globalStageLimit = 4
+        function iterate() {
+            currentStage++;
+            if (currentStage < globalStageLimit + 1) {
+                document.getElementById(`stageSelector-${currentStage}`).disabled = false;
+            } else {
+                alert('no more stages!')
+            }
+        }
+
+        window.addEventListener("load", function () {
+            // Reset the form elements on page load
+            resetBtn();
+        });
+        function resetBtn() {
+
+        }
+
+    </script>
+</body>
+
+</html>

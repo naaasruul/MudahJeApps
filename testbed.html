@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="quiz2" class="quiz-container">
+        <h2>Question 2</h2>
+        <form id="question2Form">
+            <label>
+                <input type="radio" name="s1" value="option1" id="incorrect1" 
+                onchange="autoCheckAnswer(2, this)"
+                 > <span
+                    id="option1">Option 1</span>
+            </label>
+            <label>
+                <input type="radio" name="s1" value="option2" id="correct" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option2">Option 2</span>
+            </label>
+            <label>
+                <input type="radio" name="s1" value="option3" id="incorrect2" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option3">Option 3</span>
+            </label>
+            <label>
+                <input type="radio" name="s1" value="option4" id="incorrect3" onchange="autoCheckAnswer(2, this)"> <span
+                    id="option4">Option 4</span>
+            </label>
+        </form>
+        <button id="proceed1" onclick="proceedToSummary()">Proceed to Summary</button>
+    </div>
+</body>
+</html>

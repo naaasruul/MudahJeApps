@@ -10,45 +10,38 @@
 
 <body>
     <div class="sidebar">
-        <table>
-            <tr>
-                <h1>levels</h1>
-            </tr>
-            <tr class="levelte">
-                <button id="stageSelector-1">Level 1</button>
-                <button id="stageSelector-2" disabled>Level 2</button>
-                <button id="stageSelector-3" disabled>Level 3</button>
-                <button id="stageSelector-4" disabled>Level 4</button>
-            </tr>
-        </table>
-
-
-
-        <button onclick=iterate()>iterate!</button>
-
+        <a href="../welcomePage.html">Home</a>
+        <span>
+            <h1>LEVELS</h1>
+        </span>
+        <span class="btn-item">
+            <button id="stageSelector-1">Level 1</button>
+            <button id="stageSelector-2" disabled>Level 2</button>
+            <button id="stageSelector-3" disabled>Level 3</button>
+            <button id="stageSelector-4" disabled>Level 4</button>
+            <button id="stageSelector-5" disabled>Level 5</button>
+            <!-- <button onclick=iterate()>iterate!</button> -->
+        </span>
     </div>
+    <main>
+        <nav>
+            <img src="" alt="Logo">
+            <h1>MUDAHJER BAHASA ISYARAT</h1>
+        </nav>
+        <div id="content">
+            <span class="vidSection">
+                <img src="" id="videoSection" alt="video">
+            </span>
+            <div class="quizSection">
+                <h2 id="noteSection"></h2>
+                <h2 id="questionSection"></h2>
+                <button onclick=next()>Continue!</button>
+            </div>
+        </div>
+    </main>
 
-    <script>
-        let currentStage = 1
-        let globalStageLimit = 4
-        function iterate() {
-            currentStage++;
-            if (currentStage < globalStageLimit + 1) {
-                document.getElementById(`stageSelector-${currentStage}`).disabled = false;
-            } else {
-                alert('no more stages!')
-            }
-        }
 
-        window.addEventListener("load", function () {
-            // Reset the form elements on page load
-            resetBtn();
-        });
-        function resetBtn() {
-
-        }
-
-    </script>
 </body>
+<script src="quiz.js"></script>
 
 </html>

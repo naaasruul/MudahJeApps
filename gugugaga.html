@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Up Page</title>
+    <style>
+        button {
+            margin: 10px;
+            padding: 8px;
+            font-size: 16px;
+        }
+        .section {
+            display: none;
+        }
+        #noteSection {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Level Up Page</h1>
+
+    <div id="noteSection" class="section"></div>
+    <div id="questionSection" class="section"></div>
+
+    <button onclick="next()">Next</button>
+
+    <script>
+        var level = {
+    1:{
+        notes:{
+            note1 : "N1 (Level 1)",
+            note2 : "N2 (Level 1)",
+            note3 : "N3 (Level 1)"
+        },
+        exercise:{
+            question1: "Q1 (Level 1)",
+            question2: "Q2 (Level 1)",
+            question3: "Q3 (Level 1)",
+        }
+    },
+    2:{
+        notes:{
+            note1 : "N1 (Level 2)",
+            note2 : "N2 (Level 2)",
+            note3 : "N3 (Level 2)"
+        },
+        exercise:{
+            question1: "Q1 (Level 2)",
+            question2: "Q2 (Level 2)",
+            question3: "Q3 (Level 2)",
+        }
+    },
+    3:{
+        notes:{
+            note1 : "N1 (Level 3)",
+            note2 : "N2 (Level 3)",
+            note3 : "N3 (Level 3)"
+        },
+        exercise:{
+            question1: "Q1 (Level 3)",
+            question2: "Q2 (Level 3)",
+            question3: "Q3 (Level 3)",
+        }
+    },
+    4:{
+        notes:{
+            note1 : "N1 (Level 4)",
+            note2 : "N2 (Level 4)",
+            note3 : "N3 (Level 4)"
+        },
+        exercise:{
+            question1: "Q1 (Level 4)",
+            question2: "Q2 (Level 4)",
+            question3: "Q3 (Level 4)",
+        }
+    },
+    5:{
+        notes:{
+            note1 : "N1 (Level 5)",
+            note2 : "N2 (Level 5)",
+            note3 : "N3 (Level 5) "
+        },
+        exercise:{
+            question1: "Q1 (Level 5)",
+            question2: "Q2 (Level 5)",
+            question3: "Q3 (Level 5)",
+        }
+    },
+}
+
+        var currentLevel = 1;
+        var currentNoteIndex = 1;
+        var currentQuestionIndex = 1;
+
+        function displayNotes() {
+            document.getElementById("noteSection").style.display = "block";
+            document.getElementById("questionSection").style.display = "none";
+            var noteSection = document.getElementById("noteSection");
+            noteSection.innerHTML = `<h2>Level ${currentLevel}</h2>`;
+            noteSection.innerHTML += `<p>${level[currentLevel].notes[`note${currentNoteIndex}`]}</p>`;
+        }
+
+        function displayQuestions() {
+            document.getElementById("noteSection").style.display = "none";
+            document.getElementById("questionSection").style.display = "block";
+            var questionSection = document.getElementById("questionSection");
+            questionSection.innerHTML = `<h2>Level ${currentLevel}</h2>`;
+            questionSection.innerHTML += `<p>${level[currentLevel].exercise[`question${currentQuestionIndex}`]}</p>`;
+        }
+
+        function next() {
+            if (currentNoteIndex <= 3) {
+                displayNotes();
+                currentNoteIndex++;
+            } else if (currentQuestionIndex <= 3) {
+                displayQuestions();
+                currentQuestionIndex++;
+            } else if (currentLevel < Object.keys(level).length) {
+                // Move to the next level
+                currentNoteIndex = 1;
+                currentQuestionIndex = 1;
+                currentLevel++;
+                displayNotes();
+            } else {
+                alert("Congratulations! You've completed all levels.");
+            }
+        }
+
+        // Initial display
+        displayNotes();
+    </script>
+
+</body>
+</html>
